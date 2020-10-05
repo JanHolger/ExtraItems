@@ -42,21 +42,21 @@ public class ExtraItemsPlugin extends JavaPlugin implements ExtraItemsAPI {
     }
 
     public ExtraItem registerItem(String id, Material material, String name) {
-        return registerItem(id, material, name, null, new ArrayList<>());
+        return registerItem(id, material, name, null, null, new ArrayList<>());
     }
 
     public ExtraItem registerItem(String id, Material material, String name, Integer customModelData) {
-        return registerItem(id, material, name, customModelData, new ArrayList<>());
+        return registerItem(id, material, name, customModelData, null, new ArrayList<>());
     }
 
     public ExtraItem registerItem(String id, Material material, String name, List<ExtraItemModifier> modifiers) {
-        return registerItem(id, material, name, null, modifiers);
+        return registerItem(id, material, name, null, null, modifiers);
     }
 
-    public ExtraItem registerItem(String id, Material material, String name, Integer customModelData, List<ExtraItemModifier> modifiers) {
+    public ExtraItem registerItem(String id, Material material, String name, Integer customModelData, Integer leatherColor, List<ExtraItemModifier> modifiers) {
         if(items.containsKey(id))
             return items.get(id);
-        SimpleExtraItem item = new SimpleExtraItem(id, name, material, customModelData, modifiers);
+        SimpleExtraItem item = new SimpleExtraItem(id, name, material, customModelData, leatherColor, modifiers);
         SimpleExtraItem[] newItems = new SimpleExtraItem[config.getItems().length+1];
         for(int i=0; i<config.getItems().length; i++)
             newItems[i] = config.getItems()[i];

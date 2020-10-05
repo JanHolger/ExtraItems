@@ -11,6 +11,7 @@ public interface ExtraItem {
     String getName();
     Material getMaterial();
     Integer getCustomModelData();
+    Integer getLeatherColor();
     List<ExtraItemModifier> getModifiers();
     ItemStack create(int amount);
     boolean isItem(ItemStack stack);

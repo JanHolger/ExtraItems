@@ -4,6 +4,7 @@ import eu.bebendorf.extraitems.api.ExtraItem;
 import eu.bebendorf.extraitems.api.ExtraItemModifier;
 import eu.bebendorf.extraitems.util.ItemBuilder;
 import eu.bebendorf.extraitems.util.ItemHelper;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;
@@ -20,17 +21,23 @@ public class SimpleExtraItem implements ExtraItem {
     private String name;
     private Material material;
     private Integer customModelData;
+    private Integer leatherColor;
     private List<ExtraItemModifier> modifiers;
 
-    public SimpleExtraItem(String id, String name, Material material, Integer customModelData, List<ExtraItemModifier> modifiers){
+    public SimpleExtraItem(String id, String name, Material material, Integer customModelData, Integer leatherColor, List<ExtraItemModifier> modifiers){
         this.id = id;
         this.name = name;
         this.material = material;
         this.customModelData = customModelData;
+        this.leatherColor = leatherColor;
         this.modifiers = modifiers;
     }
 
     private SimpleExtraItem(){}
+
+    public Integer getLeatherColor() {
+        return leatherColor;
+    }
 
     public String getId() {
         return id;
@@ -57,6 +64,8 @@ public class SimpleExtraItem implements ExtraItem {
                 .customModel(customModelData)
                 .flag(ItemFlag.HIDE_ATTRIBUTES)
                 .name("§r"+name);
+        if(leatherColor != null)
+            builder.leatherColor(Color.fromRGB(leatherColor));
         modifiers.forEach(m -> builder.modifier(m.getName(), m.getAttribute().getAttribute(), m.getMode().modifyAmount(m.getAmount()), m.getMode().getOperation(), ItemHelper.getEffectiveSlot(material)));
         return builder.build();
     }

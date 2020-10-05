@@ -1,5 +1,6 @@
 package eu.bebendorf.extraitems.api;
 
+import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 
 import java.util.Arrays;
@@ -44,7 +45,8 @@ public class ExtraItemModifier {
         ARMOR(org.bukkit.attribute.Attribute.GENERIC_ARMOR),
         SPEED(org.bukkit.attribute.Attribute.GENERIC_MOVEMENT_SPEED),
         FLYING_SPEED(org.bukkit.attribute.Attribute.GENERIC_FLYING_SPEED),
-        HEALTH(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
+        HEALTH(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH),
+        LUCK(org.bukkit.attribute.Attribute.GENERIC_LUCK);
         Attribute(org.bukkit.attribute.Attribute attribute){
             this.attribute = attribute;
         }

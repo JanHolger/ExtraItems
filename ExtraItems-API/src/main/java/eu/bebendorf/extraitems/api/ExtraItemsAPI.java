@@ -19,7 +19,7 @@ public interface ExtraItemsAPI {
     ExtraItem registerItem(String id, Material material, String name);
     ExtraItem registerItem(String id, Material material, String name, Integer customModelData);
     ExtraItem registerItem(String id, Material material, String name, List<ExtraItemModifier> modifiers);
-    ExtraItem registerItem(String id, Material material, String name, Integer customModelData, List<ExtraItemModifier> modifiers);
+    ExtraItem registerItem(String id, Material material, String name, Integer customModelData, Integer leatherColor, List<ExtraItemModifier> modifiers);
     void deleteItem(String id);
     void reloadItems();
 

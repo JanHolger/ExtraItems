@@ -4,6 +4,7 @@ import eu.bebendorf.extraitems.ExtraItemsPlugin;
 import eu.bebendorf.extraitems.api.ExtraItem;
 import eu.bebendorf.extraitems.api.ExtraItemModifier;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -94,6 +95,18 @@ public class ExtraItemsCommand implements CommandExecutor, TabCompleter, Listene
                     return true;
                 }
             }
+            if(args[0].equalsIgnoreCase("leather")){
+                if(bluprints.containsKey(sender)){
+                    if(args.length == 4){
+                        Color color = Color.fromRGB(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                        bluprints.get(sender).leatherColor = color.asRGB();
+                        sender.sendMessage("§aLederfarbe gesetzt!");
+                        return true;
+                    }
+                    sender.sendMessage("§cSyntax§8: §e/extraitems leather <red> <green> <blue>");
+                    return true;
+                }
+            }
             if(args[0].equalsIgnoreCase("modifier")){
                 if(bluprints.containsKey(sender)){
                     if(args.length == 5){
@@ -139,6 +152,7 @@ public class ExtraItemsCommand implements CommandExecutor, TabCompleter, Listene
                         sender.sendMessage("§bBenutze folgende Befehle zur Erstellung§8:");
                         sender.sendMessage("§e/extraitems cancel");
                         sender.sendMessage("§e/extraitems custommodel <id>");
+                        sender.sendMessage("§e/extraitems leather <red> <green> <blue>");
                         sender.sendMessage("§e/extraitems modifier <name> <attribute> <mode> <amount>");
                         sender.sendMessage("§e/extraitems create");
                     }else{
@@ -147,7 +161,7 @@ public class ExtraItemsCommand implements CommandExecutor, TabCompleter, Listene
                 }else{
                     Bluprint bluprint = bluprints.get(sender);
                     bluprints.remove(sender);
-                    ExtraItem item = ExtraItemsPlugin.INSTANCE.registerItem(bluprint.id, bluprint.material, bluprint.name, bluprint.customModelData, bluprint.modifiers);
+                    ExtraItem item = ExtraItemsPlugin.INSTANCE.registerItem(bluprint.id, bluprint.material, bluprint.name, bluprint.customModelData, bluprint.leatherColor, bluprint.modifiers);
                     sender.sendMessage("§aNeues Item §8'§7"+item.getId()+"§8'§a erstellt!");
                 }
                 return true;
@@ -161,6 +175,7 @@ public class ExtraItemsCommand implements CommandExecutor, TabCompleter, Listene
         if(bluprints.containsKey(sender)){
             sender.sendMessage("§e/extraitems cancel");
             sender.sendMessage("§e/extraitems custommodel <id>");
+            sender.sendMessage("§e/extraitems leather <red> <green> <blue>");
             sender.sendMessage("§e/extraitems modifier <name> <attribute> <mode> <amount>");
             sender.sendMessage("§e/extraitems create");
         }else{
@@ -174,7 +189,7 @@ public class ExtraItemsCommand implements CommandExecutor, TabCompleter, Listene
             return new ArrayList<>();
         if(args.length < 2){
             if(bluprints.containsKey(sender)){
-                return Arrays.asList("give", "list", "reload", "delete", "cancel", "custommodel", "modifier", "create");
+                return Arrays.asList("give", "list", "reload", "delete", "cancel", "custommodel", "leather", "modifier", "create");
             }else{
                 return Arrays.asList("give", "list", "reload", "delete", "create");
             }
@@ -210,6 +225,7 @@ public class ExtraItemsCommand implements CommandExecutor, TabCompleter, Listene
         public String id;
         public Material material;
         public String name;
+        public Integer leatherColor;
         public Bluprint(String id, Material material, String name){
             this.id = id;
             this.material = material;
